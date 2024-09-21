@@ -1,10 +1,14 @@
 import { Header } from '@/components/header'
+import { Sidebar } from '@/components/sidebar'
 
 export default function AppLayout({ children }: React.PropsWithChildren) {
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="flex min-h-screen flex-col gap-y-8 bg-gray-900">
       <Header />
-      {children}
+      <div className="mx-auto flex gap-x-8">
+        <Sidebar />
+        {children}
+      </div>
     </div>
   )
 }

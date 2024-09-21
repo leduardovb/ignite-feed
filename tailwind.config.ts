@@ -10,6 +10,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        size: {
+          '15': '3.75rem',
+        },
         gray: {
           '900': '#121214',
           '800': '#202024',
