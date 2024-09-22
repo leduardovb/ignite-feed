@@ -1,7 +1,7 @@
 import { EditProfileButton } from './edit-profile-button'
 import { Separator } from './ui/separator'
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import Image from 'next/image'
+import { UserAvatar } from './user-avatar'
 
 export function UserCard() {
   return (
@@ -14,11 +14,8 @@ export function UserCard() {
         layout="responsive"
         className="absolute rounded-t-lg"
       />
-      <div className="z-10 mb-4 mt-10 self-center rounded-lg border-2 border-primary bg-gray-800 p-1">
-        <Avatar className="size-15 rounded-sm">
-          <AvatarImage src="/picture.png" alt="Leslie Alexander" />
-          <AvatarFallback>LA</AvatarFallback>
-        </Avatar>
+      <div className="z-10 mb-4 mt-10 self-center">
+        <UserAvatar src="/picture.png" alt="Leslie Alexander" fallback="LA" />
       </div>
       <div>
         <h3 className="font-bold">Leslie Alexander</h3>
