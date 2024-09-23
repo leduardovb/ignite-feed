@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String    @id @default(cuid()) @map("_id")
+  email      String    @unique
+  name       String
+  position   String
+  password   String
+  posts      Post[]
+  pictureUrl String?
+  comments   Comment[]
+  likes      Like[]
+
+  @@map("users")
+}
+
+model Post {
+  id        String    @id @default(cuid()) @map("_id")
+  content   String
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  String
+  createdAt DateTime  @default(now())
+  comments  Comment[]
+
+  @@map("posts")
+}
+
+model Comment {
+  id        String   @id @default(cuid()) @map("_id")
+  content   String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String
+  likeCount Int      @default(0)
+  createdAt DateTime @default(now())
+  likes     Like[]
+
+  @@map("comments")
+}
+
+model Like {
+  id        String   @id @default(cuid()) @map("_id")
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  comment   Comment  @relation(fields: [commentId], references: [id])
+  commentId String
+  createdAt DateTime @default(now())
+
+  @@map("likes")
+}
