@@ -2,8 +2,15 @@ import { EditProfileButton } from './edit-profile-button'
 import { Separator } from './ui/separator'
 import Image from 'next/image'
 import { UserAvatar } from './user-avatar'
+import { useUser } from '@/hooks/auth/use-user'
 
-export function UserCard() {
+export async function UserCard() {
+  const { user } = await useUser()
+
+  if (!user) {
+    return null
+  }
+
   return (
     <div className="relative flex w-[256px] flex-col rounded-lg bg-gray-800 pb-8 text-center">
       <Image

@@ -45,9 +45,9 @@ export function CommentsContainer({ postId }: Props) {
                 <CommentText content={comment.content} />
               </CommentContent>
               <Like
-                isLiked={false}
                 onClick={() => {}}
-                count={comment._count.likes}
+                count={comment.likes}
+                isLiked={comment.isLiked}
               />
             </div>
           </Comment>
