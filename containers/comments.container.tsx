@@ -5,6 +5,7 @@ import { CommentAvatar } from '@/components/comment/comment-avatar'
 import { CommentContent } from '@/components/comment/comment-content'
 import { CommentCreatedAt } from '@/components/comment/comment-created-at'
 import { CommentHeader } from '@/components/comment/comment-header'
+import { CommentSkeletons } from '@/components/comment/comment-skeletons'
 import { CommentText } from '@/components/comment/comment-text'
 import { CommentUser } from '@/components/comment/comment-user'
 import { PostComment } from '@/components/post/post-comment'
@@ -21,7 +22,7 @@ export function CommentsContainer({ postId }: Props) {
   const { data, isPending } = usePostComments({ postId })
 
   if (isPending) {
-    return <>Carregando...</>
+    return <CommentSkeletons />
   }
 
   return (
