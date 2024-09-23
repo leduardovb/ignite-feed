@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { Roboto } from 'next/font/google'
+import { Providers } from './providers'
 
 export const metadata: Metadata = {
   title: 'Ignite feed',
@@ -18,7 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={`${RobotFont.className} antialiased`}>{children}</body>
+      <body className={`${RobotFont.className} antialiased`}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   )
 }

@@ -18,7 +18,9 @@ export function UserAvatar({ src, alt, fallback, className }: Props) {
     >
       <Avatar className="h-full w-full rounded-sm">
         <AvatarImage src={src} alt={alt} />
-        <AvatarFallback className="rounded-sm">{fallback}</AvatarFallback>
+        <AvatarFallback className="rounded-sm text-gray-800">
+          {fallback}
+        </AvatarFallback>
       </Avatar>
     </div>
   )
