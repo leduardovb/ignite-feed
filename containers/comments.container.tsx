@@ -8,6 +8,7 @@ import { CommentHeader } from '@/components/comment/comment-header'
 import { CommentSkeletons } from '@/components/comment/comment-skeletons'
 import { CommentText } from '@/components/comment/comment-text'
 import { CommentUser } from '@/components/comment/comment-user'
+import { Like } from '@/components/like'
 import { PostComment } from '@/components/post/post-comment'
 import { PostComments } from '@/components/post/post-comments'
 import { usePostComments } from '@/hooks/posts/use-post-comments'
@@ -35,13 +36,20 @@ export function CommentsContainer({ postId }: Props) {
               fallback={userFallback(comment.author.name)}
               src={comment.author.pictureUrl ?? DefaultAvatar}
             />
-            <CommentContent>
-              <CommentHeader>
-                <CommentUser>{comment.author.name}</CommentUser>
-                <CommentCreatedAt date={comment.createdAt} />
-              </CommentHeader>
-              <CommentText content={comment.content} />
-            </CommentContent>
+            <div className="flex w-full flex-col gap-y-4">
+              <CommentContent>
+                <CommentHeader>
+                  <CommentUser>{comment.author.name}</CommentUser>
+                  <CommentCreatedAt date={comment.createdAt} />
+                </CommentHeader>
+                <CommentText content={comment.content} />
+              </CommentContent>
+              <Like
+                isLiked={false}
+                onClick={() => {}}
+                count={comment._count.likes}
+              />
+            </div>
           </Comment>
         </PostComment>
       ))}
