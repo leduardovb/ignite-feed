@@ -1,6 +1,5 @@
 'use client'
 
-import { AddFeedback } from '@/components/add-feedback'
 import { Post } from '@/components/post'
 import { PostContent } from '@/components/post/post-content'
 import { PostCreatedAt } from '@/components/post/post-created-at'
@@ -13,6 +12,7 @@ import { DefaultAvatar } from '@/lib/default-avatar'
 import { userFallback } from '@/lib/utils'
 import { Separator } from '@radix-ui/react-separator'
 import { CommentsContainer } from './comments.container'
+import { AddFeedbackContainer } from './add-feedback.container'
 
 export function PostsContainer() {
   const { data, isLoading } = usePosts()
@@ -39,7 +39,7 @@ export function PostsContainer() {
           </PostHeader>
           <PostContent content={post.content} />
           <Separator />
-          <AddFeedback />
+          <AddFeedbackContainer postId={post.id} />
           <CommentsContainer postId={post.id} />
         </Post>
       ))}
