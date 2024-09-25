@@ -8,13 +8,12 @@ interface ListPostCommentsQuery {
   postId: string
 }
 
-interface ListPostCommentsResponse {
+export interface ListPostCommentsResponse {
   id: string
   likes: number
   content: string
   authorId: string
   postId: string
-  likeCount: number
   createdAt: Date
   isLiked: boolean
   author: {
@@ -37,7 +36,6 @@ interface ListPostCommentsData {
   content: string
   authorId: string
   postId: string
-  likeCount: number
   createdAt: Date
 }
 
