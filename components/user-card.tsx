@@ -3,6 +3,8 @@ import { Separator } from './ui/separator'
 import Image from 'next/image'
 import { UserAvatar } from './user-avatar'
 import { useUser } from '@/hooks/auth/use-user'
+import { userFallback } from '@/lib/utils'
+import { DefaultAvatar } from '@/lib/default-avatar'
 
 export async function UserCard() {
   const { user } = await useUser()
@@ -18,15 +20,18 @@ export async function UserCard() {
         height={72}
         alt="Background"
         src="/banner.png"
-        layout="responsive"
         className="absolute rounded-t-lg"
       />
       <div className="z-10 mb-4 mt-10 self-center">
-        <UserAvatar src="/picture.png" alt="Leslie Alexander" fallback="LA" />
+        <UserAvatar
+          alt={user.name}
+          fallback={userFallback(user.name)}
+          src={user.pictureUrl ?? DefaultAvatar}
+        />
       </div>
       <div>
-        <h3 className="font-bold">Leslie Alexander</h3>
-        <p className="text-sm text-gray-500">UI Designer</p>
+        <h3 className="font-bold">{user.name}</h3>
+        <p className="text-sm text-gray-500">{user.position}</p>
       </div>
       <Separator className="my-6" />
       <EditProfileButton />

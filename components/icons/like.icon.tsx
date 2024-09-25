@@ -12,7 +12,7 @@ export function LikeIcon() {
         stroke="#8D8D99"
         stroke-width="1.5"
         stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinejoin="round"
         className="stroke-current"
       />
     </svg>

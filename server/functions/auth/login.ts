@@ -44,6 +44,7 @@ export async function login({ email, password }: LoginDTO) {
   const tokenDuration = 60 * 60 * 24
   const cookiesStore = cookies()
   cookiesStore.set(env.TOKEN_KEY, encodedToken, {
+    path: '/',
     httpOnly: true,
     maxAge: tokenDuration,
   })
