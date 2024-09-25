@@ -11,6 +11,7 @@ export const RegisterSchema = z
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Senhas não conferem',
+    path: ['confirmPassword'],
   })
 
 export type RegisterDTO = z.infer<typeof RegisterSchema>

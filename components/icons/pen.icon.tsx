@@ -12,7 +12,7 @@ export function PenIcon() {
         stroke="#00B37E"
         stroke-width="1.5"
         stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinejoin="round"
         className="stroke-current"
       />
     </svg>
