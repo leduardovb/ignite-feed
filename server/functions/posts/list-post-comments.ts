@@ -17,6 +17,7 @@ export interface ListPostCommentsResponse {
   createdAt: Date
   isLiked: boolean
   author: {
+    id: string
     name: string
     position: string
     pictureUrl: string | null
@@ -25,6 +26,7 @@ export interface ListPostCommentsResponse {
 
 interface ListPostCommentsData {
   author: {
+    id: string
     name: string
     position: string
     pictureUrl: string | null
@@ -53,6 +55,7 @@ export async function listPostComments({ postId }: ListPostCommentsQuery) {
     include: {
       author: {
         select: {
+          id: true,
           name: true,
           pictureUrl: true,
           position: true,

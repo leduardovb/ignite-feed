@@ -14,16 +14,25 @@ import { usePostComments } from '@/hooks/posts/use-post-comments'
 import { DefaultAvatar } from '@/lib/default-avatar'
 import { userFallback } from '@/lib/utils'
 import { LikeContainer } from './like.container'
+import { useAuth } from '@/hooks/auth/use-auth'
 
 interface Props {
   postId: string
 }
 
 export function CommentsContainer({ postId }: Props) {
+  const { data: auth } = useAuth()
   const { data, isPending } = usePostComments({ postId })
 
   if (isPending) {
     return <CommentSkeletons />
+  }
+
+  const makeCommentUser = (userId: string, name: string) => {
+    if (auth?.user?.id === userId) {
+      return `${name} (Você)`
+    }
+    return name
   }
 
   return (
@@ -39,7 +48,9 @@ export function CommentsContainer({ postId }: Props) {
             <div className="flex w-full flex-col gap-y-4">
               <CommentContent>
                 <CommentHeader>
-                  <CommentUser>{comment.author.name}</CommentUser>
+                  <CommentUser>
+                    {makeCommentUser(comment.author.id, comment.author.name)}
+                  </CommentUser>
                   <CommentCreatedAt date={comment.createdAt} />
                 </CommentHeader>
                 <CommentText content={comment.content} />
