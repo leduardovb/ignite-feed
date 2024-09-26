@@ -1,16 +1,19 @@
+'use client'
+
 import { EditProfileButton } from './edit-profile-button'
 import { Separator } from './ui/separator'
-import Image from 'next/image'
-import { UserAvatar } from './user-avatar'
-import { useUser } from '@/hooks/auth/use-user'
-import { userFallback } from '@/lib/utils'
+import { useAuth } from '@/hooks/auth/use-auth'
+import { Skeleton } from './ui/skeleton'
 import { DefaultAvatar } from '@/lib/default-avatar'
+import { userFallback } from '@/lib/utils'
+import { UserAvatar } from './user-avatar'
+import Image from 'next/image'
 
-export async function UserCard() {
-  const { user } = await useUser()
+export function UserCard() {
+  const { data, isLoading } = useAuth()
 
-  if (!user) {
-    return null
+  if (!data?.user || isLoading) {
+    return <Skeleton className="h-[294px] w-[256px] rounded-lg" />
   }
 
   return (
@@ -24,14 +27,21 @@ export async function UserCard() {
       />
       <div className="z-10 mb-4 mt-10 self-center">
         <UserAvatar
-          alt={user.name}
-          fallback={userFallback(user.name)}
-          src={user.pictureUrl ?? DefaultAvatar}
+          alt={data.user.name}
+          fallback={userFallback(data.user.name)}
+          src={data.user.pictureUrl ?? DefaultAvatar}
         />
       </div>
-      <div>
-        <h3 className="font-bold">{user.name}</h3>
-        <p className="text-sm text-gray-500">{user.position}</p>
+      <div className="px-4">
+        <h3 title={data.user.name} className="truncate font-bold">
+          {data.user.name}
+        </h3>
+        <p
+          title={data.user.position}
+          className="truncate text-sm text-gray-500"
+        >
+          {data.user.position}
+        </p>
       </div>
       <Separator className="my-6" />
       <EditProfileButton />

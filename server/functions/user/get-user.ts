@@ -6,8 +6,10 @@ import { User } from '@prisma/client'
 import { cookies } from 'next/headers'
 import jwt from 'jsonwebtoken'
 
+export type UserWithoutPassword = Omit<User, 'password'>
+
 type AuthenticatedUser = {
-  user: User
+  user: UserWithoutPassword
   isAuthenticated: true
 }
 
@@ -29,19 +31,19 @@ export async function getUser(): Promise<UserResponse> {
   try {
     jwt.verify(token, env.JWT_SECRET)
 
-    const user = await prisma.userToken.findFirst({
+    const userToken = await prisma.userToken.findFirst({
       where: { token },
       include: { user: true },
     })
 
-    if (!user) {
+    if (!userToken) {
       return { user: null, isAuthenticated: false }
     }
 
-    return { user: user.user, isAuthenticated: true }
-  } catch {
-    cookiesStore.delete(env.TOKEN_KEY)
+    const user = { ...userToken.user, password: undefined }
 
+    return { user, isAuthenticated: true }
+  } catch {
     return { user: null, isAuthenticated: false }
   }
 }
